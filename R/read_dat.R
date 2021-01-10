@@ -29,7 +29,6 @@
 #' @importFrom dplyr mutate select filter if_else row_number everything
 #' @importFrom tidyr separate fill
 #' @importFrom stringr str_trim str_extract str_remove_all str_detect str_c str_sub str_replace_all
-#' @importFrom readr read_lines locale
 
 #' @examples
 #' \dontrun{
@@ -37,7 +36,8 @@
 #' }
 #' @export
 read_dat <- function(file,br_char="[br]",encoding="Shift-JIS"){
-  data <- read_lines(file,locale=locale(encoding=encoding))
+  data <- readLines(file,encoding=encoding) %>%
+    str_remove_all("\ufffd")
   res <- data.frame(tmp=data,stringsAsFactors=FALSE) %>%
     separate(col=tmp,into=c("name","mail","datetimeid","content","thread_title"),sep="<>") %>%
     mutate(thread_title=if_else(thread_title=="",NA_character_,thread_title)) %>%
@@ -56,7 +56,12 @@ read_dat <- function(file,br_char="[br]",encoding="Shift-JIS"){
     mutate(id=str_remove_all(id," .*")) %>%
     mutate(content=str_replace_all(content," <br> ",br_char)) %>%
     mutate(content=str_remove_all(content,"<.*?>")) %>%
-    mutate(content=str_replace_all(content,"&gt;",">")) %>%
+    mutate(content=str_replace_all(content,c(
+      "&gt;"=">",
+      "&lt;"="<",
+      "&amp;"="&",
+      "&quot;"='"'
+    ))) %>%
     mutate(content=str_trim(content,side="both"))
   return(res)
 }

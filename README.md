@@ -3,7 +3,7 @@
 
 # readdat5
 
-5chのスレを専用ブラウザで開いた時に保存されるdatファイルを読み込んで、そのスレの各レスを行に持つdata.frameを返します。
+5ch（旧2ch）のスレを専用ブラウザで開いた時に保存されるdatファイルを読み込んで、そのスレの各レスを行に持つdata.frameを返します。
 
 <!-- badges: start -->
 
@@ -15,12 +15,6 @@
 
 ``` r
 remotes::install_github("suzuna/readdat5")
-```
-
-remotesパッケージが入っていない場合は、先に以下を実行して、remotesパッケージをインストールしてください。
-
-``` r
-install.packages("remotes")
 ```
 
 ## 使用例
@@ -35,7 +29,7 @@ read_dat(file="foo.dat",br_char="[br]",encoding="Shift-JIS")
 
   - file: datファイルのパスです。
   - br\_char:
-    レスの中に含まれる改行を、この引数で与えた文字列で表します。デフォルトは“\[br\]”です。なお、br\_charの中には、“\<”と“\>”は使用しないでください。read\_datの中で、datファイルに含まれるhtmlタグを取り除くのですが、htmlタグだとみなされて消去されます。
+    レスの中に含まれる改行を、この引数で与えた文字列で表します。デフォルトは“\[br\]”です。なお、br\_charの中には、“\<”と“\>”は使用しないでください。read\_datの中で、datファイルに含まれるhtmlタグを取り除いているのですが、htmlタグだとみなされて消去されます。
   - encoding:
     datファイルのエンコーディングです。デフォルトは“Shift-JIS”です。環境によってはUTF-8を指定しないと読み込めないかもしれません。
 
@@ -57,20 +51,22 @@ read_dat(file="foo.dat",br_char="[br]",encoding="Shift-JIS")
 options(digits.secs=2)
 ```
 
-2個以上のファイルパスを与えることはできません。2個以上のファイルパスを与えたい場合には、purrr::map\_dfrなどを用いてください。
+data.frameにするにあたり、以下の処理を行っています。
+
+  - 文字化けにより、稀にレス中に代替文字（UnicodeでU+FFFD）が含まれることがありますが、代替文字は削除しています。
+  - 投稿時間が“NY:AN:NY.AN”と隠されていることがありますが、その場合は“00:00:00.00”に置き換えています。
+
+## 補足
+
+2個以上のファイルパスを与えることはできません。2個以上のファイルパスを与えたい場合には、purrr::map\_dfrなどを用いてください。読み込みたいdatファイルが大量にある場合は、furrr::future\_map\_dfrなどを用いると、並列化によって高速に読み込めます。
 
 ``` r
 file_path <- c("foo.dat","bar.dat")
 map_dfr(file_path,~read_dat(file=.x,br_char="[br]",encoding="Shift-JIS"))
 ```
 
-読み込みたいdatファイルが大量にある場合は、furrr::future\_map\_dfrを用いると、並列化によって高速に読み込めます。
+## 参考
 
-``` r
-file_path <- list.files("たくさんのdatファイルが入ったフォルダ")
-
-library(furrr)
-# CPUの全てのスレッドを用いる
-plan(multisession)
-future_map_dfr(file_path,~read_dat(file=.x,br_char="[br]",encoding="Shift-JIS"),.progress=TRUE)
-```
+  - [2chとの通信方法をまとめてみた〜超基本通信編〜](https://zuzu.hateblo.jp/entry/20100312/1268477856)
+  - [JeneViewの正規表現を使用するときの注意点
+    datデータ編](http://thinkarc.blogspot.com/2007/07/jeneview-dat.html)
