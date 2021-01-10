@@ -51,11 +51,6 @@ read_dat(file="foo.dat",br_char="[br]",encoding="Shift-JIS")
 options(digits.secs=2)
 ```
 
-data.frameにするにあたり、以下の処理を行っています。
-
-  - 文字化けにより、稀にレス中に代替文字（UnicodeでU+FFFD）が含まれることがありますが、代替文字は削除しています。
-  - 投稿時間が“NY:AN:NY.AN”と隠されていることがありますが、その場合は“00:00:00.00”に置き換えています。
-
 ## 補足
 
 2個以上のファイルパスを与えることはできません。2個以上のファイルパスを与えたい場合には、purrr::map\_dfrなどを用いてください。読み込みたいdatファイルが大量にある場合は、furrr::future\_map\_dfrなどを用いると、並列化によって高速に読み込めます。
@@ -64,9 +59,3 @@ data.frameにするにあたり、以下の処理を行っています。
 file_path <- c("foo.dat","bar.dat")
 map_dfr(file_path,~read_dat(file=.x,br_char="[br]",encoding="Shift-JIS"))
 ```
-
-## 参考
-
-  - [2chとの通信方法をまとめてみた〜超基本通信編〜](https://zuzu.hateblo.jp/entry/20100312/1268477856)
-  - [JeneViewの正規表現を使用するときの注意点
-    datデータ編](http://thinkarc.blogspot.com/2007/07/jeneview-dat.html)
