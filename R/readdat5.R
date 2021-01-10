@@ -4,5 +4,4 @@
 #'
 #' @name readdat5
 #' @docType package
-#' @import dplyr tidyr stringr readr
 NULL

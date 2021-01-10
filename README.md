@@ -57,8 +57,6 @@ read_dat(file="foo.dat",br_char="[br]",encoding="Shift-JIS")
 options(digits.secs=2)
 ```
 
-稀に文字化けなどでdatファイルが読み込めない場合があります。その場合はNULLが返り値となるとともに、エラーメッセージが表示されます。
-
 2個以上のファイルパスを与えることはできません。2個以上のファイルパスを与えたい場合には、purrr::map\_dfrなどを用いてください。
 
 ``` r
