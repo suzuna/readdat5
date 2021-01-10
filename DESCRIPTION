@@ -1,6 +1,6 @@
 Package: readdat5
 Type: Package
-Title: The Tools of Reading Dat Files of 5ch.
+Title: The Tools of Reading Dat Files of 5ch
 Version: 0.1.0
 Author@R: person("suzuna",role=c("aut","cre"))
 Description: Read dat files of 5ch.
