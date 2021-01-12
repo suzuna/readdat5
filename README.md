@@ -22,7 +22,7 @@ remotes::install_github("suzuna/readdat5")
 このパッケージには、関数read\_datのみが含まれます。この関数は、5chのスレを専用ブラウザで開いた時に保存されるdatファイルを読み込んで、そのスレの各レスのdata.frameを返す関数です。
 
 ``` r
-read_dat(file="foo.dat",br_char="[br]",encoding="Shift-JIS")
+read_dat(file,br_char="[br]",encoding="Shift-JIS")
 ```
 
 引数は以下の通りです。

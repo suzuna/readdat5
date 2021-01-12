@@ -5,8 +5,6 @@ Version: 0.1.0
 Author@R: person("suzuna",role=c("aut","cre"))
 Description: Read dat files of 5ch.
 License: MIT + file LICENSE
-Depends:
-    R
 Imports: 
     dplyr,
     magrittr,
