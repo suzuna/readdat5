@@ -22,8 +22,6 @@ knitr::opts_chunk$set(
 
 ## インストール
 
-以下でインストールできます。
-
 ```{r,eval=FALSE}
 remotes::install_github("suzuna/readdat5")
 ```

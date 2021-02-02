@@ -11,8 +11,6 @@
 
 ## インストール
 
-以下でインストールできます。
-
 ``` r
 remotes::install_github("suzuna/readdat5")
 ```
