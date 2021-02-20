@@ -33,20 +33,23 @@ read_dat(file,br_char="[br]",encoding="Shift-JIS")
 
 返り値は、以下の列を持つdata.frameです。
 
-  - dat\_id: datファイルの名前
-  - thread\_title: スレのタイトル
-  - res\_number: レスの番号
-  - name: レスの名前欄
-  - mail: レスのメール欄
-  - datetime: レスの投稿日時
-  - id: レスのID
-  - content: レスの内容（改行はbr\_charで指定した文字で表されます）
+  - dat\_id: datファイルの名前（character）
+  - thread\_title: スレのタイトル（character）
+  - res\_number: レスの番号（integer）
+  - name: レスの名前欄（character）
+  - mail: レスのメール欄（character）
+  - datetime: レスの投稿日時（character）
+  - id: レスのID（character）
+  - content: レスの内容（character）なお、改行はbr\_charで指定した文字で表されます。
 
 なお、元のレスの投稿日時が“2021/1/1
-01:23:45.67”のようにミリ秒以下まで存在する場合、関数を実行する前に以下を実行するとdatetimeがミリ秒以下まで表せるようになります。
+01:23:45.67”のようにミリ秒まで存在する場合、以下のようにすると、datetimeがミリ秒を含んだPOSIXctの列になります。
 
 ``` r
+df <- read_dat(file,br_char="[br]",encoding="Shift-JIS")
 options(digits.secs=2)
+df <- df %>% 
+  mutate(datetime=as.POSIXct(datetime,format="%Y/%m/%d %H:%M:%OS"))
 ```
 
 ## 補足
