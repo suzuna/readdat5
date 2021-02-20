@@ -19,7 +19,7 @@
 #'
 #' mail: character. a string of mail form.
 #'
-#' datetime: POSIXct. a datetime which a response is posted.
+#' datetime: character. a datetime which a response is posted.
 #'
 #' id: character. an id of a response.
 #'
@@ -51,8 +51,7 @@ read_dat <- function(file,br_char="[br]",encoding="Shift-JIS"){
     separate(col=datetimeid,into=c("datetime","id"),sep=" (?=ID)") %>%
     mutate(datetime=if_else(str_detect(datetime,"NY:AN:NY\\.AN"),
                             str_c(str_sub(datetime,start=1,end=10)," 00:00:00.00"),datetime)) %>%
-    mutate(datetime=str_remove_all(datetime,pattern="\\(.\\)") %>%
-             as.POSIXct(format="%Y/%m/%d %H:%M:%OS")) %>%
+    mutate(datetime=str_remove_all(datetime,pattern="\\(.\\)")) %>%
     mutate(id=str_remove_all(id," .*")) %>%
     mutate(content=str_replace_all(content," <br> ",br_char)) %>%
     mutate(content=str_remove_all(content,"<.*?>")) %>%

@@ -29,7 +29,7 @@ name: character. a name of a response.
 
 mail: character. a string of mail form.
 
-datetime: POSIXct. a datetime which a response is posted.
+datetime: character. a datetime which a response is posted.
 
 id: character. an id of a response.
 
