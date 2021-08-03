@@ -6,7 +6,6 @@
 5ch（旧2ch）のスレを専用ブラウザで開いた時に保存されるdatファイルを読み込んで、そのスレの各レスを行に持つdata.frameを返します。
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 ## インストール
@@ -25,22 +24,24 @@ read_dat(file,br_char="[br]",encoding="Shift-JIS")
 
 引数は以下の通りです。
 
-  - file: datファイルのパスです。
-  - br\_char:
-    レスの中に含まれる改行を、この引数で与えた文字列で表します。デフォルトは“\[br\]”です。なお、br\_charの中には、“\<”と“\>”は使用しないでください。read\_datの中で、datファイルに含まれるhtmlタグを取り除いているのですが、htmlタグだとみなされて消去されます。
-  - encoding:
+-   file: datファイルのパスです。
+-   br\_char:
+    レスの中に含まれる改行を、この引数で与えた文字列で表します。デフォルトは“\[br\]”です。なお、br\_charの中には、“&lt;”と“&gt;”は使用しないでください。read\_datの中で、datファイルに含まれるhtmlタグを取り除いているのですが、htmlタグだとみなされて消去されます。
+-   encoding:
     datファイルのエンコーディングです。デフォルトは“Shift-JIS”です。環境によってはUTF-8を指定しないと読み込めないかもしれません。
 
 返り値は、以下の列を持つdata.frameです。
 
-  - dat\_id: datファイルの名前（character）
-  - thread\_title: スレのタイトル（character）
-  - res\_number: レスの番号（integer）
-  - name: レスの名前欄（character）
-  - mail: レスのメール欄（character）
-  - datetime: レスの投稿日時（character）
-  - id: レスのID（character）
-  - content: レスの内容（character）なお、改行はbr\_charで指定した文字で表されます。
+-   dat\_id: datファイルの名前（character）
+-   thread\_title: スレのタイトル（character）
+-   res\_number: レスの番号（integer）
+-   name: レスの名前欄（character）
+-   mail: レスのメール欄（character）
+-   datetime: レスの投稿日時（character）
+-   id: レスのID（character）
+-   be: レスのBE（character）
+-   content:
+    レスの内容（character）なお、改行はbr\_charで指定した文字で表されます。
 
 なお、元のレスの投稿日時が“2021/1/1
 01:23:45.67”のようにミリ秒まで存在する場合、以下のようにすると、datetimeがミリ秒を含んだPOSIXctの列になります。

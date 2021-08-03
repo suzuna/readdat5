@@ -23,6 +23,8 @@
 #'
 #' id: character. an id of a response.
 #'
+#' be: character. a be of a response.
+#'
 #' content: character. a content of a response.
 #'
 #' @importFrom magrittr %>%
@@ -39,7 +41,7 @@ read_dat <- function(file,br_char="[br]",encoding="Shift-JIS"){
   data <- readLines(file,encoding=encoding) %>%
     str_remove_all("\ufffd")
   res <- data.frame(tmp=data,stringsAsFactors=FALSE) %>%
-    separate(col=tmp,into=c("name","mail","datetimeid","content","thread_title"),sep="<>") %>%
+    separate(col=tmp,into=c("name","mail","datetimeidbe","content","thread_title"),sep="<>",fill="right") %>%
     mutate(thread_title=if_else(thread_title=="",NA_character_,thread_title)) %>%
     fill(thread_title,.direction="down") %>%
     mutate(thread_title=str_trim(thread_title)) %>%
@@ -47,11 +49,12 @@ read_dat <- function(file,br_char="[br]",encoding="Shift-JIS"){
     mutate(dat_id=str_extract(file,"[^/]*(?=\\.dat$)")) %>%
     select(dat_id,thread_title,res_number,everything()) %>%
     mutate(name=str_remove_all(name,"<.*?>")) %>%
-    filter(datetimeid!="Over 1000 Thread") %>%
-    separate(col=datetimeid,into=c("datetime","id"),sep=" (?=ID)") %>%
+    filter(datetimeidbe!="Over 1000 Thread") %>%
+    separate(col=datetimeidbe,into=c("datetime","idbe"),sep=" (?=ID:)",fill="right") %>%
     mutate(datetime=if_else(str_detect(datetime,"NY:AN:NY\\.AN"),
                             str_c(str_sub(datetime,start=1,end=10)," 00:00:00.00"),datetime)) %>%
     mutate(datetime=str_remove_all(datetime,pattern="\\(.\\)")) %>%
+    separate(col=idbe,into=c("id","be"),sep=" (?=BE:)") %>%
     mutate(id=str_remove_all(id," .*")) %>%
     mutate(content=str_replace_all(content," <br> ",br_char)) %>%
     mutate(content=str_remove_all(content,"<.*?>")) %>%
