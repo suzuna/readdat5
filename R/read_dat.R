@@ -54,7 +54,7 @@ read_dat <- function(file,br_char="[br]",encoding="Shift-JIS"){
     mutate(datetime=if_else(str_detect(datetime,"NY:AN:NY\\.AN"),
                             str_c(str_sub(datetime,start=1,end=10)," 00:00:00.00"),datetime)) %>%
     mutate(datetime=str_remove_all(datetime,pattern="\\(.\\)")) %>%
-    separate(col=idbe,into=c("id","be"),sep=" (?=BE:)") %>%
+    separate(col=idbe,into=c("id","be"),sep=" (?=BE:)",fill="right") %>%
     mutate(id=str_remove_all(id," .*")) %>%
     mutate(content=str_replace_all(content," <br> ",br_char)) %>%
     mutate(content=str_remove_all(content,"<.*?>")) %>%
