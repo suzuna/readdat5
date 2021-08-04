@@ -33,7 +33,7 @@ datetime: character. a datetime which a response is posted.
 
 id: character. an id of a response.
 
-be: character. an be of a response.
+be: character. a be of a response.
 
 content: character. a content of a response.
 }
