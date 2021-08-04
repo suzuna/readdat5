@@ -49,6 +49,7 @@ read_dat(file,br_char="[br]",encoding="Shift-JIS")
 - mail: レスのメール欄（character）
 - datetime: レスの投稿日時（character）
 - id: レスのID（character）
+- be: レスのBE（character）
 - content: レスの内容（character）なお、改行はbr_charで指定した文字で表されます。
 
 なお、元のレスの投稿日時が"2021/1/1 01:23:45.67"のようにミリ秒まで存在する場合、以下のようにすると、datetimeがミリ秒を含んだPOSIXctの列になります。
