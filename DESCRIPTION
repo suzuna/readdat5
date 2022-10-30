@@ -1,7 +1,7 @@
 Package: readdat5
 Type: Package
 Title: The Tools of Reading Dat Files of 5ch
-Version: 0.1.0
+Version: 0.1.1
 Author@R: person("suzuna",role=c("aut","cre"))
 Description: Read dat files of 5ch.
 License: MIT + file LICENSE
@@ -9,7 +9,9 @@ Imports:
     dplyr,
     magrittr,
     stringr,
-    tidyr
+    tidyr,
+    readr,
+    tibble
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1

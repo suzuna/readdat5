@@ -2,43 +2,34 @@
 % Please edit documentation in R/read_dat.R
 \name{read_dat}
 \alias{read_dat}
-\title{Read a dat file of 5ch and return a data.frame.}
+\title{Read a dat file of 5ch and return a tibble}
 \usage{
 read_dat(file, br_char = "[br]", encoding = "Shift-JIS")
 }
 \arguments{
-\item{file}{a path to a dat file.}
+\item{file}{a string. a path to a dat file.}
 
-\item{br_char}{a string which represents "<br>" (new line) in responses ("res" in Japanese). Default is "[br]".
-a string which contains "<" and ">" is not allowed to use.}
+\item{br_char}{a string which represents "<br>" (new line) in responses ("res" in Japanese).
+It is not allowed to use a string which contains "<" and ">".}
 
-\item{encoding}{encoding of a file. Default is "Shift-JIS".}
+\item{encoding}{a string. encoding of a file.}
 }
 \value{
-a data.frame which contains this columns: dat_id, thread_title, res_number, name, mail, datetime, id, content.
-
-Here is a description of each columns.
-
-dat_id: character. a filename of a dat file.
-
-thread_title: character. a title of a thread.
-
-res_number: integer. the number of a response.
-
-name: character. a name of a response.
-
-mail: character. a string of mail form.
-
-datetime: character. a datetime which a response is posted.
-
-id: character. an id of a response.
-
-be: character. a be of a response.
-
-content: character. a content of a response.
+a tibble. Here is columns of the tibble.
+\itemize{
+  \item{dat_id} {character. a filename of a dat file.}
+  \item{thread_title} {character. a title of a thread.}
+  \item{res_number} {integer. the number of a response.}
+  \item{name} {character. a name of a response.}
+  \item{mail} {character. a string of mail form.}
+  \item{datetime} {character. a datetime which a response is posted.}
+  \item{id} {character. an id of a response.}
+  \item{be} {character. a be of a response.}
+  \item{content} {character. a content of a response.}
+}
 }
 \description{
-Read a dat file of 5ch and return a data.frame.
+Read a dat file of 5ch and return a tibble
 }
 \examples{
 \dontrun{
