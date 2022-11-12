@@ -68,3 +68,13 @@ read_dat <- function(file,br_char="[br]",encoding="Shift-JIS") {
     dplyr::relocate(dat_id,thread_title,res_number,name,mail,datetime,id,be,content)
   return(res)
 }
+
+#' Unescape character references
+#' @param str a string vector.
+#' @return a string vector.
+#' @export
+unescape_character_reference <- function(str) {
+  purrr::map_chr(str,function(x) {
+    xml2::xml_text(xml2::read_html(stringr::str_c("<text>",x,"</text>")))
+  })
+}

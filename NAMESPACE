@@ -2,4 +2,5 @@
 
 export("%>%")
 export(read_dat)
+export(unescape_character_reference)
 importFrom(magrittr,"%>%")
